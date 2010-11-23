@@ -58,7 +58,7 @@ syn match     haxeOperator     "\(\.\.\.\|\*\|+\|-\|<<\|>>\|\/\|!\|||\|&&\|%\)"
 syn match     haxeComparison   "\(==\|<=\|>=\|<\|>\|!=\)"
 syn match     haxeOptionalVars contained "?[a-zA-Z_]\+"
 
-syn match     haxeFunctionRef  "[a-zA-Z_]\+("me=e-1
+syn match     haxeFunctionRef  "[_$a-zA-Z][_$a-zA-Z0-9_]*("me=e-1
 
 " We use a match here to differentiate the keyword class from MyClass.class 
 syn match     haxeTypedef      "\.\s*\<class\>"ms=s+1
@@ -66,7 +66,7 @@ syn match     haxeClassDecl    "^class\>"
 syn match     haxeClassDecl    "[^.]\s*\<class\>"ms=s+1
 syn keyword   haxeBranch       break continue nextgroup=haxeUserLabelRef skipwhite
 syn match     haxeUserLabelRef "\k\+" contained
-syn match     haxeClassDef     "^\s*class\s*[a-zA-Z_]\+\s*" contains=haxeTypedef,haxeClassDecl
+syn match     haxeClassDef     "\(^\s*class\s*\)\@<=[_$a-zA-Z][_$a-zA-Z0-9_]*" contains=haxeTypedef,haxeClassDecl
 
 syn match     haxeLangClass    "\<System\>"
 syn keyword   haxeLangClass    Array ArrayAccess Class Date DateTools EReg Enum
@@ -186,7 +186,7 @@ endif
 syn region    haxeLabelRegion  transparent matchgroup=haxeLabel start="\<case\>"
                                \ matchgroup=NONE end=":"
                                \ contains=haxeNumber,haxeChr,haxeNumber2
-syn match     haxeUserLabel    "\({\s*\|^\s*\)[_$a-zA-Z][_$a-zA-Z0-9_]*:"he=e-1
+syn match     haxeUserLabel    "\({\s*\|^\s*\|,\s*\)\@<=[_$a-zA-Z][_$a-zA-Z0-9_]*:\s"he=e-1 contains=haxeDelimiter
                                \ contains=haxeLabel
 syn keyword   haxeLabel        default never
 
@@ -277,7 +277,7 @@ syn match     haxeCondError    "#else *$"
 syn match     haxeSpecial      "\\u\d\{4\}"
 
 syn match     haxeType         ":[a-zA-Z_\.]\+"
-                               \ contains=haxeDelimeter,haxeCoreType,haxeFlashTop,haxeFlashInner,haxeFlashFinal,haxeFlash9Final
+                               \ contains=haxeDelimiter,haxeCoreType,haxeFlashTop,haxeFlashInner,haxeFlashFinal,haxeFlash9Final
 
 syn cluster   haxeTop          add=haxeString,haxeChr,haxeNumber,haxeNumber2
 syn cluster   haxeTop          add=haxeSpecial,haxeStringError,haxeDelimiter,haxeType
