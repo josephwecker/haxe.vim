@@ -235,7 +235,7 @@ if exists("haxe_haxedoc") || main_syntax == 'jsp'
                                \ contains=haxeCmTitle,@haxeHtml,haxeDocTags,haxeTodo,@Spell
   syn region  haxeCmTitle      contained matchgroup=haxeDocCm start="/\*\*"
                                \ matchgroup=haxeCmTitle keepend end="\.$"
-                               \ end="\.[ \t\r<&]"me=e-1
+                               \ end="\.[ \t\r<]"me=e-1
                                \ end="[^{]@"me=s-2,he=s-1 end="\*/"me=s-1,he=s-1
                                \ contains=@haxeHtml,haxeCmStar,haxeTodo,@Spell,haxeDocTags
   syn region  haxeDocTags      contained start="{@\(link\|linkplain\|inherit[Dd]oc\|doc[rR]oot\|value\)" 
@@ -388,7 +388,7 @@ if version >= 508 || !exists("did_haxe_syn_inits")
   HaxeHiLink  haxeFunction     Function
   HaxeHiLink  haxeCmTitle      Special
   HaxeHiLink  haxeDocTags      SpecialComment
-  HaxeHiLink  haxeCmStar       SpecialComment
+  HaxeHiLink  haxeCmStar       Comment
 
   HaxeHiLink  haxeDocParam     Function
   HaxeHiLink  haxeCoreType     Keyword
