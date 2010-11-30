@@ -268,10 +268,11 @@ syn match     haxeNumber2      "\<\d\+[eE][-+]\=\d\+[fFdD]\=\>" contains=haxeSpe
 syn match     haxeNumber2      "\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>" contains=haxeSpecNum
 syn match     haxeSpecNum      contained "\(0[xX]\|[\.+-]\)"
 
-syn region    haxeCondIf       start="#if \+!\?" end="\W" skip="([A-Za-z0-9_ |&!]\+)"
-syn region    haxeCondElse     start="#else \+!\?" end="\W" skip="([A-Za-z0-9_ |&!]\+)"
+syn region    haxeCondIf       start="#if \+!\?" end="\(\W\|$\)" skip="([A-Za-z0-9_ |&!]\+)"
+syn region    haxeCondElseIf   start="#elseif \+!\?" end="\(\W\|$\)" skip="([A-Za-z0-9_ |&!]\+)"
+syn match     haxeCondElse     "#else\s*$"
 syn match     haxeCondEnd      "#end"
-syn match     haxeCondError    "#else *$"
+syn match     haxeCondError    "#else .*$"
 
 " unicode characters
 syn match     haxeSpecial      "\\u\d\{4\}"
@@ -399,8 +400,9 @@ if version >= 508 || !exists("did_haxe_syn_inits")
   HaxeHiLink  htmlCommentPart  Special
   HaxeHiLink  haxeSpaceError   Error
   HaxeHiLink  haxeCondIf       PreCondit
-  HaxeHiLink  haxeCondElse     PreCondit
-  HaxeHiLink  haxeCondEnd      PreCondit
+  HaxeHiLink  haxeCondElseIf   PreCondit
+  HaxeHiLink  haxeCondElse     PreProc
+  HaxeHiLink  haxeCondEnd      PreProc
 
   HaxeHiLink  haxeCondError    Error
 
