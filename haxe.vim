@@ -222,7 +222,7 @@ syn region    haxeCm           start="/\*" end="\*/"
 syn match     haxeCmStar       contained "^\s*\*[^/]"me=e-1
 syn match     haxeCmStar       contained "^\s*\*$"
 syn match     haxeLineCm       "//.*" contains=@haxeCmSpecial2,haxeTodo,@Spell
-HaxeHiLink    haxeCmString     haxeDebug
+HaxeHiLink    haxeCmString     haxeDocTags
 HaxeHiLink    haxeCm2String    haxeString
 HaxeHiLink    haxeCmCharacter  haxeChr
 syn cluster   haxeTop          add=haxeCm,haxeLineCm
