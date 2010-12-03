@@ -44,8 +44,8 @@ syn keyword   haxeStatement    return
 
 syn keyword   haxeTypedef1     typedef
 syn keyword   haxeStructure    var enum
-syn keyword   haxeScopeDecl    public protected private
-syn keyword   haxeScopeDecl2   static override final abstract
+syn keyword   haxeScopeDecl    private public
+syn keyword   haxeScopeDecl2   static override final dynamic
 syn keyword   haxeFunctionDef  function
 
 syn keyword   haxeExceptions   throw try catch finally untyped
