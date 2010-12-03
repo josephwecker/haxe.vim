@@ -41,7 +41,6 @@ syn keyword   haxeTypedef      this super
 syn keyword   haxeOperator     new cast 
 syn keyword   haxeCoreType     Void Bool Int Float Dynamic
 syn keyword   haxeStatement    return
-syn keyword   haxeDebug        trace
 
 syn keyword   haxeTypedef1     typedef
 syn keyword   haxeStructure    var enum
@@ -232,18 +231,19 @@ if exists("haxe_haxedoc") || main_syntax == 'jsp'
   " syntax include @haxeHtml <sfile>:p:h/html.vim
   " unlet b:current_syntax
   syn region  haxeDocCm        start="/\*\*" end="\*/" keepend
-                               \ contains=haxeCmTitle,@haxeHtml,haxeDocTags,haxeTodo,@Spell
+                               \ contains=haxeCmTitle,@haxeHtml,haxeDocTags,haxeTodo,@Spell,haxeProposedTags
   syn region  haxeCmTitle      contained matchgroup=haxeDocCm start="/\*\*"
                                \ matchgroup=haxeCmTitle keepend end="\.$"
                                \ end="\.[ \t\r<]"me=e-1
                                \ end="[^{]@"me=s-2,he=s-1 end="\*/"me=s-1,he=s-1
-                               \ contains=@haxeHtml,haxeCmStar,haxeTodo,@Spell,haxeDocTags
+                               \ contains=@haxeHtml,haxeCmStar,haxeTodo,@Spell,haxeDocTags,haxeProposedTags
   syn region  haxeDocTags      contained start="{@\(link\|linkplain\|inherit[Dd]oc\|doc[rR]oot\|value\)" 
                                \ end="}"
   syn match   haxeDocTags      contained "@\(see\|param\|exception\|throws\|since\)\s\+\S\+"
                                \ contains=haxeDocParam
   syn match   haxeDocParam     contained "\s\S\+"
   syn match   haxeDocTags      contained "@\(version\|author\|return\|deprecated\|serial\|serialField\|serialData\)\>"
+  syn match   haxeProposedTags contained "@\(category\|example\|tutorial\|index\|exclude\|todo\|internal\|obsolete\)\>"
   syntax case match
 endif
 syn match     haxeCm           "/\*\*/"  " Edge case
@@ -282,6 +282,9 @@ syn match     haxeType         ":[a-zA-Z_\.]\+"
 
 syn cluster   haxeTop          add=haxeString,haxeChr,haxeNumber,haxeNumber2
 syn cluster   haxeTop          add=haxeSpecial,haxeStringError,haxeDelimiter,haxeType
+
+syn keyword   haxeTraceFun     trace contained
+syn region    haxeTrace        start=+\(^\s*\)\@<=trace(+ end=+);+ contains=haxeTraceFun
 
 if exists("haxe_highlight_functions")
  if haxe_highlight_functions == "indent"
@@ -363,7 +366,7 @@ if version >= 508 || !exists("did_haxe_syn_inits")
   HaxeHiLink  haxeSingleString Character
 
   HaxeHiLink  haxeEreg         Number
-  HaxeHiLink  haxeEregEscape   Float
+  HaxeHiLink  haxeEregEscape   Debug
   HaxeHiLink  haxeChr          Character
   HaxeHiLink  haxeSpecChr      SpecialChar
   HaxeHiLink  haxeNumber       Number
@@ -374,7 +377,8 @@ if version >= 508 || !exists("did_haxe_syn_inits")
   HaxeHiLink  haxeStatement    Statement
   HaxeHiLink  haxeOperator     Operator
   HaxeHiLink  haxeComparison   Repeat
-  HaxeHiLink  haxeDebug        Debug
+  HaxeHiLink  haxeTraceFun     SpecialComment
+  HaxeHiLink  haxeTrace        Comment
   HaxeHiLink  haxeDelimiter    Delimiter
 
   HaxeHiLink  haxeCm           Comment
@@ -389,6 +393,7 @@ if version >= 508 || !exists("did_haxe_syn_inits")
   HaxeHiLink  haxeFunction     Function
   HaxeHiLink  haxeCmTitle      Special
   HaxeHiLink  haxeDocTags      SpecialComment
+  HaxeHiLink  haxeProposedTags SpecialComment
   HaxeHiLink  haxeCmStar       Comment
 
   HaxeHiLink  haxeDocParam     Function
